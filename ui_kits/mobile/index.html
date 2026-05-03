@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kcal — Mobile UI Kit</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>
+  html,body{margin:0;padding:0;background:#0B0E11;min-height:100vh;font-family:'Inter',system-ui,sans-serif}
+  .stage{padding:40px 20px 80px;display:flex;flex-direction:column;align-items:center;gap:32px}
+  .header{width:100%;max-width:1240px;display:flex;align-items:center;gap:16px;color:#EAECEF}
+  .h-mark{width:36px;height:36px}
+  .h-title{font-size:18px;font-weight:600;letter-spacing:-0.01em}
+  .h-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;color:#848E9C;text-transform:uppercase}
+  .frames{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+  .frame-cap{display:flex;flex-direction:column;align-items:center;gap:8px}
+  .cap-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;color:#848E9C;text-transform:uppercase}
+  .controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;color:#B7BDC6;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .ctrl-btn{height:30px;padding:0 12px;border-radius:6px;border:1px solid #2B3139;background:#181A20;color:#EAECEF;font-family:inherit;font-size:11px;cursor:pointer;letter-spacing:.06em;text-transform:uppercase}
+  .ctrl-btn.active{background:#FCD535;color:#0B0E11;border-color:#FCD535}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="ios-frame.jsx"></script>
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="screens.jsx"></script>
+
+<script type="text/babel" data-presets="env,react">
+const { IOSDevice, HomeScreen, PlanScreen, AddFoodSheet, FoodDetailScreen, StatsScreen, MeScreen } = window;
+
+function App() {
+  const [active, setActive] = React.useState('home');
+  const [sheet, setSheet] = React.useState(null); // 'add' | 'food' | null
+
+  const screens = {
+    home:  <HomeScreen  active="home"  onTab={setActive} onPlus={()=>setSheet('add')} onOpenLog={()=>setActive('plan')}/>,
+    plan:  <PlanScreen  active="plan"  onTab={setActive} onPlus={()=>setSheet('add')} onOpenFood={()=>setSheet('food')}/>,
+    stats: <StatsScreen active="stats" onTab={setActive} onPlus={()=>setSheet('add')}/>,
+    me:    <MeScreen    active="me"    onTab={setActive} onPlus={()=>setSheet('add')}/>,
+  };
+
+  return (
+    <div className="stage">
+      <div className="header">
+        <img className="h-mark" src="../../assets/logo-mark.svg"/>
+        <div>
+          <div className="h-title">Kcal — Mobile UI Kit</div>
+          <div className="h-tag">5 SCREENS · INTERACTIVE · BINANCE × FITIA</div>
+        </div>
+      </div>
+
+      <div className="controls">
+        {[
+          {id:'home', label:'Home'},
+          {id:'plan', label:'Plan'},
+          {id:'stats', label:'Stats'},
+          {id:'me', label:'Me'},
+        ].map(t => (
+          <button key={t.id} className={`ctrl-btn ${active===t.id?'active':''}`} onClick={()=>setActive(t.id)}>{t.label}</button>
+        ))}
+        <button className="ctrl-btn" onClick={()=>setSheet('add')}>+ Add food</button>
+        <button className="ctrl-btn" onClick={()=>setSheet('food')}>Food detail</button>
+      </div>
+
+      <div className="frames">
+        <div className="frame-cap">
+          <div data-screen-label={`01 ${active}`} style={{position:'relative'}}>
+            <IOSDevice width={390} height={844} dark={true}>
+              {screens[active]}
+              {sheet === 'add' && <AddFoodSheet onClose={()=>setSheet(null)} onAddItem={()=>setSheet(null)}/>}
+              {sheet === 'food' && <FoodDetailScreen onClose={()=>setSheet(null)}/>}
+            </IOSDevice>
+          </div>
+          <div className="cap-lbl">{active.toUpperCase()}{sheet?` · ${sheet}`:''}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

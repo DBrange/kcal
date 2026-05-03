@@ -1,0 +1,12 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css"><style>
+body{margin:0;padding:24px;background:var(--bg-0);font-family:var(--font-sans);display:flex;flex-direction:column;gap:12px}
+.field{display:flex;flex-direction:column;gap:6px}
+.lbl{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-3)}
+.input{height:48px;background:var(--bg-2);border:1px solid transparent;border-radius:8px;color:var(--fg-1);padding:0 14px;font-family:var(--font-sans);font-size:15px;outline:none}
+.input:focus,.focused{border-color:var(--brand)}
+.input::placeholder{color:var(--fg-3)}
+</style></head><body>
+<div class="field"><span class="lbl">food</span><input class="input" placeholder="Search 10M+ verified foods"></div>
+<div class="field"><span class="lbl">weight</span><input class="input focused" value="72.4 kg"></div>
+<div class="field"><span class="lbl">disabled</span><input class="input" value="Locked field" disabled style="opacity:.32"></div>
+</body></html>

@@ -1,0 +1,263 @@
+/* =========================================================================
+   Kcal — Binance-style Calorie App Design System
+   colors_and_type.css
+
+   Import this file at the top of any HTML/JSX surface in this project to
+   inherit the brand tokens, type scale, and a small set of semantic
+   element defaults (h1, h2, p, code, .num, .label, .ticker).
+
+   Naming convention:
+     --bg-N        : background surfaces, low N = furthest back
+     --fg-N        : foregrounds (text/icons), low N = highest emphasis
+     --line-N      : dividers / hairlines
+     --brand       : Binance-derived golden yellow
+     --pos / --neg : semantic green / red
+     --info        : muted blue (used very sparingly)
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  /* ── Brand ────────────────────────────────────────────────────────────── */
+  --brand:            #FCD535;   /* Bright Sun — primary CTA, active states */
+  --brand-strong:     #F0B90B;   /* Original Binance gold — pressed/hover   */
+  --brand-soft:       #F8D12F33; /* 20% — focus rings, soft fills           */
+  --brand-fg:         #0B0E11;   /* Text color when sitting ON the yellow   */
+
+  /* ── Surfaces (dark theme — DEFAULT) ──────────────────────────────────── */
+  --bg-0:             #0B0E11;   /* App background — "Binance Black"         */
+  --bg-1:             #181A20;   /* Card / sheet                             */
+  --bg-2:             #1E2329;   /* Elevated card / row hover                */
+  --bg-3:             #2B3139;   /* Input / chip / pressed state             */
+  --bg-overlay:       rgba(0, 0, 0, 0.6);   /* Modal scrim                   */
+  --bg-blur:          rgba(11, 14, 17, 0.72); /* Tab bar w/ backdrop-filter  */
+
+  /* ── Foregrounds ──────────────────────────────────────────────────────── */
+  --fg-1:             #EAECEF;   /* Primary text                             */
+  --fg-2:             #B7BDC6;   /* Secondary text / inactive nav            */
+  --fg-3:             #848E9C;   /* Tertiary / placeholder / metadata        */
+  --fg-4:             #5E6673;   /* Disabled / very subtle                   */
+
+  /* ── Lines ────────────────────────────────────────────────────────────── */
+  --line-1:           #2B3139;   /* Default divider                          */
+  --line-2:           #1E2329;   /* Even subtler — between rows in a table   */
+
+  /* ── Semantic ─────────────────────────────────────────────────────────── */
+  --pos:              #0ECB81;   /* Buy / under-budget / gain / success      */
+  --pos-soft:         #0ECB8133;
+  --pos-bg:           #0F2A22;   /* Used as cell bg for green deltas         */
+  --neg:              #F6465D;   /* Sell / over-budget / loss / error        */
+  --neg-soft:         #F6465D33;
+  --neg-bg:           #2B1419;   /* Cell bg for red deltas                   */
+  --warn:             #F0B90B;   /* Warning — same as brand-strong           */
+  --info:             #5AC8FA;   /* Used VERY rarely; links in marketing     */
+
+  /* ── Macro accents (food-specific extension of the trading palette) ───── */
+  --macro-protein:    #F6465D;   /* Red — read like "consumed/sell"          */
+  --macro-carbs:      #FCD535;   /* Brand yellow                             */
+  --macro-fat:        #0ECB81;   /* Green — read like "credit"               */
+  --macro-fiber:      #5AC8FA;
+  --macro-water:      #5AC8FA;
+
+  /* ── Radii ────────────────────────────────────────────────────────────── */
+  --r-0:              0px;
+  --r-1:              4px;       /* Chips, small tags                        */
+  --r-2:              8px;       /* Buttons, inputs, food thumbs             */
+  --r-3:              12px;      /* Cards, sheets                            */
+  --r-pill:           999px;     /* Pills, segmented, ring                   */
+
+  /* ── Spacing (4px base grid) ──────────────────────────────────────────── */
+  --s-1:              4px;
+  --s-2:              8px;
+  --s-3:              12px;
+  --s-4:              16px;
+  --s-5:              20px;
+  --s-6:              24px;
+  --s-7:              32px;
+  --s-8:              40px;
+  --s-9:              64px;
+
+  /* ── Elevation (used sparingly — see README) ──────────────────────────── */
+  --elev-sheet:       0 -8px 32px rgba(0, 0, 0, 0.5);
+  --elev-pop:         0 8px 24px rgba(0, 0, 0, 0.5);
+  --glow-brand:       inset 0 0 24px rgba(252, 213, 53, 0.15);
+
+  /* ── Motion ───────────────────────────────────────────────────────────── */
+  --ease:             cubic-bezier(0.2, 0, 0, 1);
+  --t-fast:           120ms;
+  --t-base:           180ms;
+  --t-slow:           320ms;
+
+  /* ── Type families ────────────────────────────────────────────────────── */
+  --font-sans:        'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:        'JetBrains Mono', ui-monospace, 'SF Mono', 'Menlo', monospace;
+  /* NOTE: Inter is a substitute for Binance Plex (Binance's custom typeface).
+     If you have the Binance Plex .woff2 files, drop them into /fonts/ and
+     swap them into --font-sans here. */
+
+  /* ── Type scale ───────────────────────────────────────────────────────── */
+  --fs-display-xl:    56px;      /* Splash hero number                       */
+  --fs-display:       40px;      /* Dashboard calorie ring center number     */
+  --fs-h1:            28px;
+  --fs-h2:            22px;
+  --fs-h3:            18px;
+  --fs-body:          15px;
+  --fs-body-sm:       14px;
+  --fs-caption:       12px;
+  --fs-label:         11px;      /* UPPERCASE tracked labels                 */
+
+  --lh-tight:         1.1;
+  --lh-snug:          1.25;
+  --lh-body:          1.5;
+
+  --tr-tight:         -0.02em;
+  --tr-label:         0.06em;
+}
+
+/* ── Light theme (secondary; opt-in via [data-theme="light"]) ───────────── */
+[data-theme="light"] {
+  --bg-0:             #FFFFFF;
+  --bg-1:             #FAFAFA;
+  --bg-2:             #F5F5F5;
+  --bg-3:             #EAECEF;
+  --bg-blur:          rgba(255, 255, 255, 0.72);
+  --bg-overlay:       rgba(0, 0, 0, 0.4);
+
+  --fg-1:             #0B0E11;
+  --fg-2:             #474D57;
+  --fg-3:             #76808F;
+  --fg-4:             #B7BDC6;
+
+  --line-1:           #EAECEF;
+  --line-2:           #F5F5F5;
+
+  --pos-bg:           #E6F8F0;
+  --neg-bg:           #FCE9EB;
+}
+
+/* =========================================================================
+   Base elements
+   ========================================================================= */
+
+html, body {
+  background: var(--bg-0);
+  color: var(--fg-1);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'cv11', 'ss01', 'ss03';
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-tight);
+  color: var(--fg-1);
+  margin: 0;
+}
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); font-weight: 500; }
+
+p { margin: 0; color: var(--fg-1); }
+
+code, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  font-feature-settings: 'tnum';
+}
+
+a { color: var(--pos); text-decoration: none; }
+a:hover { color: color-mix(in oklab, var(--pos) 85%, white); }
+
+/* =========================================================================
+   Utility classes — use these heavily
+   ========================================================================= */
+
+/* Numbers — always tabular, mono, tracked */
+.num, .ticker {
+  font-family: var(--font-mono);
+  font-feature-settings: 'tnum';
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+.ticker {
+  text-transform: uppercase;
+  letter-spacing: var(--tr-label);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  color: var(--fg-3);
+}
+
+/* Tracked uppercase label — used everywhere */
+.label {
+  text-transform: uppercase;
+  letter-spacing: var(--tr-label);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  color: var(--fg-3);
+}
+
+/* Display number — hero figures */
+.display {
+  font-family: var(--font-sans);
+  font-size: var(--fs-display);
+  font-weight: 600;
+  letter-spacing: var(--tr-tight);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--fg-1);
+}
+
+/* Semantic deltas */
+.pos { color: var(--pos); }
+.neg { color: var(--neg); }
+.muted { color: var(--fg-3); }
+
+/* Cards (no border, no shadow — defined by surface contrast) */
+.card {
+  background: var(--bg-1);
+  border-radius: var(--r-3);
+  padding: var(--s-4);
+}
+
+/* Button base — sentence case, never Title */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--s-2);
+  height: 48px;
+  padding: 0 var(--s-5);
+  border: 0;
+  border-radius: var(--r-2);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+}
+.btn:active { transform: scale(0.98); }
+.btn--primary { background: var(--brand); color: var(--brand-fg); }
+.btn--primary:hover { background: var(--brand-strong); }
+.btn--ghost   { background: var(--bg-2); color: var(--fg-1); }
+.btn--ghost:hover { background: var(--bg-3); }
+.btn--pos     { background: var(--pos); color: #062E1E; }
+.btn--neg     { background: var(--neg); color: #2B0509; }
+.btn--sm      { height: 32px; padding: 0 var(--s-3); font-size: var(--fs-body-sm); }
+
+/* Pills */
+.pill {
+  display: inline-flex; align-items: center; gap: var(--s-1);
+  height: 24px;
+  padding: 0 var(--s-2);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  background: var(--bg-3);
+  color: var(--fg-2);
+}
+.pill--pos { background: var(--pos-bg); color: var(--pos); }
+.pill--neg { background: var(--neg-bg); color: var(--neg); }
+.pill--brand { background: var(--brand-soft); color: var(--brand); }
