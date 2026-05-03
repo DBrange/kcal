@@ -118,6 +118,73 @@ const HomeScreen = ({ cardStyle = "with-photo", widgetVariant = "curve" }) => {
             </div>
           </div>
 
+          {/* Actividad física */}
+          <div style={{ borderTop: "1px solid var(--divider)", padding: "14px 16px 8px" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <div style={{
+                  width: 32, height: 32, borderRadius: 10,
+                  background: "var(--surface-2)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  color: "var(--text-secondary)",
+                }}>
+                  <Icon name="flame" size={16}/>
+                </div>
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 600 }}>Actividad física</div>
+                  <div style={{ fontSize: 11, color: "var(--text-tertiary)" }} className="tabular">284 kcal · 47 min</div>
+                </div>
+              </div>
+              <div style={{
+                width: 24, height: 24, borderRadius: 8,
+                background: "var(--surface-2)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                color: "var(--text-secondary)",
+              }}>
+                <Icon name="plus" size={14} strokeWidth={2.2}/>
+              </div>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+              <ExerciseRow icon="trending" name="Correr" detail="32 min · ritmo medio" kcal={218} time="7:15"/>
+              <ExerciseRow icon="scale" name="Pesas — tren superior" detail="4 ejercicios · 18 min" kcal={66} time="18:30"/>
+            </div>
+          </div>
+
+          {/* Notas del día */}
+          <div style={{ borderTop: "1px solid var(--divider)", padding: "14px 16px 8px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+              <div style={{
+                width: 32, height: 32, borderRadius: 10,
+                background: "var(--surface-2)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                color: "var(--text-secondary)",
+              }}>
+                <Icon name="edit" size={16}/>
+              </div>
+              <div style={{ fontSize: 14, fontWeight: 600 }}>Notas del día</div>
+            </div>
+            <div style={{
+              padding: "10px 12px", borderRadius: 10,
+              background: "var(--surface-2)",
+              fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.45,
+            }}>
+              Dormí 7h. Energía media en el entreno. Probé un nuevo desayuno con avena.
+            </div>
+          </div>
+
+          {/* Resumen del día */}
+          <div style={{ borderTop: "1px solid var(--divider)", padding: "14px 16px 16px" }}>
+            <div style={{ fontSize: 11, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: 0.4, fontWeight: 600, marginBottom: 10 }}>
+              Resumen del día
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+              <SummaryStat label="Consumido" value="1,842" unit="kcal"/>
+              <SummaryStat label="Quemado" value="284" unit="kcal" delta="−"/>
+              <SummaryStat label="Balance neto" value="1,558" unit="kcal" sub="vs 2,247 meta"/>
+              <SummaryStat label="Déficit del día" value="−689" unit="kcal" color="var(--success-500)"/>
+            </div>
+          </div>
+
           <div style={{ height: 24 }}/>
         </div>
       </div>
@@ -169,6 +236,35 @@ const SuppRow = ({ name, dose, time, done }) => (
       <div style={{ fontSize: 11, color: "var(--text-tertiary)" }}>{dose}</div>
     </div>
     <div className="tabular" style={{ fontSize: 12, color: "var(--text-secondary)", fontWeight: 500 }}>{time}</div>
+  </div>
+);
+
+const ExerciseRow = ({ icon, name, detail, kcal, time }) => (
+  <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 0" }}>
+    <div style={{
+      width: 36, height: 36, borderRadius: 8,
+      background: "var(--surface-2)",
+      display: "flex", alignItems: "center", justifyContent: "center",
+      color: "var(--text-primary)", flexShrink: 0,
+    }}>
+      <Icon name={icon} size={16}/>
+    </div>
+    <div style={{ flex: 1, minWidth: 0 }}>
+      <div style={{ fontSize: 13.5, fontWeight: 500 }}>{name}</div>
+      <div style={{ fontSize: 11, color: "var(--text-tertiary)" }} className="tabular">{detail} · {time}</div>
+    </div>
+    <div style={{ fontSize: 13, fontWeight: 600, color: "var(--macro-fat)" }} className="tabular">−{kcal}</div>
+  </div>
+);
+
+const SummaryStat = ({ label, value, unit, sub, delta, color }) => (
+  <div style={{ border: "1px solid var(--border)", borderRadius: 12, padding: "10px 12px" }}>
+    <div style={{ fontSize: 10, color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: 0.4, fontWeight: 600 }}>{label}</div>
+    <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginTop: 2 }}>
+      <span className="tabular" style={{ fontSize: 18, fontWeight: 700, color: color || "var(--text-primary)" }}>{delta}{value}</span>
+      <span style={{ fontSize: 11, color: "var(--text-tertiary)" }}>{unit}</span>
+    </div>
+    {sub && <div style={{ fontSize: 10, color: "var(--text-tertiary)", marginTop: 2 }}>{sub}</div>}
   </div>
 );
 
@@ -510,4 +606,4 @@ const SelectField = ({ icon, label, value }) => (
   </div>
 );
 
-Object.assign(window, { HomeScreen, SearchScreen, FoodDetailScreen, MiniStat, SuppRow, SearchResultRow, MacroSplitPie, MacroCell, SelectField });
+Object.assign(window, { HomeScreen, SearchScreen, FoodDetailScreen, MiniStat, SuppRow, ExerciseRow, SummaryStat, SearchResultRow, MacroSplitPie, MacroCell, SelectField });
