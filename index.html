@@ -22,6 +22,7 @@
 <script type="text/babel" src="components.jsx"></script>
 <script type="text/babel" src="screens-1.jsx"></script>
 <script type="text/babel" src="screens-2.jsx"></script>
+<script type="text/babel" src="screens-3.jsx"></script>
 
 <script type="text/babel">
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -65,6 +66,10 @@ function App() {
     { id: "compare", label: "Comparador",        Comp: ComparatorScreen, w: 393, h: 852 },
     { id: "stats",   label: "Progreso",          Comp: StatsScreen, w: 393, h: 852 },
     { id: "meal",    label: "Detalle comida",    Comp: MealDetailScreen, w: 393, h: 852 },
+    { id: "onboard", label: "Onboarding",        Comp: OnboardingScreen, w: 393, h: 852 },
+    { id: "profile", label: "Perfil",            Comp: ProfileScreen, w: 393, h: 852 },
+    { id: "camera",  label: "Cámara IA",         Comp: CameraAIScreen, w: 393, h: 852 },
+    { id: "supps",   label: "Suplementos",       Comp: SupplementsScreen, w: 393, h: 852 },
   ];
 
   return (
