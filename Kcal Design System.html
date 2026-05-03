@@ -23,6 +23,7 @@
 <script type="text/babel" src="screens-1.jsx"></script>
 <script type="text/babel" src="screens-2.jsx"></script>
 <script type="text/babel" src="screens-3.jsx"></script>
+<script type="text/babel" src="screens-4.jsx"></script>
 
 <script type="text/babel">
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -66,10 +67,26 @@ function App() {
     { id: "compare", label: "Comparador",        Comp: ComparatorScreen, w: 393, h: 852 },
     { id: "stats",   label: "Progreso",          Comp: StatsScreen, w: 393, h: 852 },
     { id: "meal",    label: "Detalle comida",    Comp: MealDetailScreen, w: 393, h: 852 },
-    { id: "onboard", label: "Onboarding",        Comp: OnboardingScreen, w: 393, h: 852 },
     { id: "profile", label: "Perfil",            Comp: ProfileScreen, w: 393, h: 852 },
     { id: "camera",  label: "Cámara IA",         Comp: CameraAIScreen, w: 393, h: 852 },
+    { id: "barcode", label: "Escáner barras",    Comp: BarcodeScreen, w: 393, h: 852 },
+    { id: "quick",   label: "Quick add",         Comp: QuickAddScreen, w: 393, h: 852 },
     { id: "supps",   label: "Suplementos",       Comp: SupplementsScreen, w: 393, h: 852 },
+    { id: "suppDet", label: "Detalle suplemento", Comp: SuppDetailScreen, w: 393, h: 852 },
+    { id: "recipes", label: "Recetas",           Comp: RecipesScreen, w: 393, h: 852 },
+    { id: "recDet",  label: "Detalle receta",    Comp: RecipeDetailScreen, w: 393, h: 852 },
+    { id: "plan",    label: "Plan de comidas",   Comp: MealPlanScreen, w: 393, h: 852 },
+    { id: "shop",    label: "Lista de compras",  Comp: ShoppingScreen, w: 393, h: 852 },
+  ];
+
+  const onboarding = [
+    { id: "onb1", label: "1 · Bienvenida",   Comp: OnbStep1 },
+    { id: "onb2", label: "2 · Datos",        Comp: OnbStep2 },
+    { id: "onb3", label: "3 · Medidas",      Comp: OnbStep3 },
+    { id: "onb4", label: "4 · Objetivo",     Comp: OnbStep4 },
+    { id: "onb5", label: "5 · Actividad",    Comp: OnbStep5 },
+    { id: "onb6", label: "6 · Restricciones",Comp: OnbStep6 },
+    { id: "onb7", label: "7 · Resultado",    Comp: OnbStep7 },
   ];
 
   return (
@@ -85,6 +102,14 @@ function App() {
                   widgetVariant={tweaks.widgetVariant}
                 />
               </PhoneFrame>
+            </DCArtboard>
+          ))}
+        </DCSection>
+
+        <DCSection id="onboarding" title="Onboarding · 7 pasos">
+          {onboarding.map(s => (
+            <DCArtboard key={s.id} id={s.id} label={s.label} width={393} height={852}>
+              <PhoneFrame><s.Comp/></PhoneFrame>
             </DCArtboard>
           ))}
         </DCSection>
