@@ -24,8 +24,6 @@
 <script type="text/babel" src="screens-2.jsx"></script>
 <script type="text/babel" src="screens-3.jsx"></script>
 <script type="text/babel" src="screens-4.jsx"></script>
-<script type="text/babel" src="screens-5.jsx"></script>
-<script type="text/babel" src="screens-6.jsx"></script>
 
 <script type="text/babel">
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -81,19 +79,6 @@ function App() {
     { id: "shop",    label: "Lista de compras",  Comp: ShoppingScreen, w: 393, h: 852 },
   ];
 
-  const creation = [
-    { id: "newFood",   label: "Crear alimento",       Comp: CreateFoodScreen },
-    { id: "newRecipe", label: "Crear receta",         Comp: CreateRecipeScreen },
-    { id: "newSupp",   label: "Crear suplemento",     Comp: CreateSupplementScreen },
-  ];
-
-  const activity = [
-    { id: "actList",   label: "Actividad — listado del día",   Comp: ActivityLogListScreen },
-    { id: "actDetail", label: "Actividad — detalle",           Comp: ActivityLogDetailScreen },
-    { id: "exHero",    label: "Actividad — hero (legacy)",     Comp: ExerciseScreen },
-    { id: "exDetail",  label: "Actividad — sesión run (legacy)", Comp: ExerciseDetailScreen },
-  ];
-
   const onboarding = [
     { id: "onb1", label: "1 · Bienvenida",   Comp: OnbStep1 },
     { id: "onb2", label: "2 · Datos",        Comp: OnbStep2 },
@@ -117,22 +102,6 @@ function App() {
                   widgetVariant={tweaks.widgetVariant}
                 />
               </PhoneFrame>
-            </DCArtboard>
-          ))}
-        </DCSection>
-
-        <DCSection id="creation" title="Formularios de creación · USER_CUSTOM">
-          {creation.map(s => (
-            <DCArtboard key={s.id} id={s.id} label={s.label} width={393} height={852}>
-              <PhoneFrame><s.Comp/></PhoneFrame>
-            </DCArtboard>
-          ))}
-        </DCSection>
-
-        <DCSection id="activity" title="Actividad física · activity-logs">
-          {activity.map(s => (
-            <DCArtboard key={s.id} id={s.id} label={s.label} width={393} height={852}>
-              <PhoneFrame><s.Comp/></PhoneFrame>
             </DCArtboard>
           ))}
         </DCSection>

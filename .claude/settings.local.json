@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp -f \"index.html\" \"index.backup.html\")",
+      "Bash(cp -f \"index copy.html\" \"index.html\")"
+    ]
+  }
+}
