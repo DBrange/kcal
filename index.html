@@ -28,6 +28,7 @@
 <script type="text/babel" src="screens-6.jsx"></script>
 <script type="text/babel" src="screens-7.jsx"></script>
 <script type="text/babel" src="screens-8.jsx"></script>
+<script type="text/babel" src="screens-9.jsx"></script>
 
 <script type="text/babel">
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -65,7 +66,7 @@ function App() {
   }, [tweaks.theme]);
 
   const screens = [
-    { id: "home",    label: "Home — Hoy",        Comp: HomeScreen, w: 393, h: 852 },
+    { id: "home",    label: "Home — Hoy (split comida + suplem.)", Comp: HomeWithSuppSplitScreen, w: 393, h: 852 },
     { id: "search",  label: "Búsqueda",          Comp: SearchScreen, w: 393, h: 852 },
     { id: "detail",  label: "Detalle alimento",  Comp: FoodDetailScreen, w: 393, h: 852 },
     { id: "compare", label: "Comparador",        Comp: ComparatorScreen, w: 393, h: 852 },
@@ -75,8 +76,10 @@ function App() {
     { id: "camera",  label: "Cámara IA",         Comp: CameraAIScreen, w: 393, h: 852 },
     { id: "barcode", label: "Escáner barras",    Comp: BarcodeScreen, w: 393, h: 852 },
     { id: "quick",   label: "Quick add",         Comp: QuickAddScreen, w: 393, h: 852 },
-    { id: "supps",   label: "Suplementos",       Comp: SupplementsScreen, w: 393, h: 852 },
-    { id: "suppDet", label: "Detalle suplemento", Comp: SuppDetailScreen, w: 393, h: 852 },
+    { id: "supps",   label: "Suplementos",       Comp: SupplementsFinal, w: 393, h: 852 },
+    { id: "suppDet", label: "Detalle suplemento", Comp: () => <SuppDetailFinal owned={true} hasNutrition={true}/>, w: 393, h: 852 },
+    { id: "suppDetCur", label: "Detalle suplem. (CURATED)", Comp: () => <SuppDetailFinal owned={false} hasNutrition={true}/>, w: 393, h: 852 },
+    { id: "suppDetEmpty", label: "Detalle suplem. (sin info)", Comp: () => <SuppDetailFinal owned={true} hasNutrition={false}/>, w: 393, h: 852 },
     { id: "recipes", label: "Recetas",           Comp: RecipesScreen, w: 393, h: 852 },
     { id: "recDet",  label: "Detalle receta",    Comp: RecipeDetailScreen, w: 393, h: 852 },
     { id: "plan",    label: "Plan de comidas",   Comp: MealPlanScreen, w: 393, h: 852 },
@@ -86,8 +89,11 @@ function App() {
   const creation = [
     { id: "newFood",   label: "Crear alimento",       Comp: CreateFoodScreen },
     { id: "newRecipe", label: "Crear receta",         Comp: CreateRecipeScreen },
-    { id: "newSupp",   label: "Crear suplemento",     Comp: CreateSupplementScreen },
-    { id: "newRegimen",label: "Crear pauta de suplemento", Comp: SupplementRegimenScreen },
+    { id: "newSupp",     label: "Crear suplemento",          Comp: () => <CreateSupplementFinal mode="create"/> },
+    { id: "editSupp",    label: "Editar suplemento (USER_CUSTOM)", Comp: () => <CreateSupplementFinal mode="edit"/> },
+    { id: "newRegimen",  label: "Crear pauta de suplemento",  Comp: () => <SupplementRegimenFinal mode="create"/> },
+    { id: "editRegimen", label: "Editar pauta · activa",      Comp: () => <SupplementRegimenFinal mode="edit" isActive={true}/> },
+    { id: "editRegimenArc", label: "Editar pauta · archivada", Comp: () => <SupplementRegimenFinal mode="edit" isActive={false}/> },
   ];
 
   const supplementsFlow = [
@@ -97,9 +103,6 @@ function App() {
     { id: "suppStats",    label: "Adherencia · stats", Comp: SupplementStatsScreen },
     { id: "logLibre",     label: "Registrar toma libre", Comp: LogLibreScreen },
     { id: "suppHistory",  label: "Histórico de tomas", Comp: SuppLogsHistoryScreen },
-    { id: "suppNutri",    label: "Detalle suplem. · nutrición", Comp: SuppNutritionBlock },
-    { id: "createNutri",  label: "Crear suplem. · wizard nutrición", Comp: CreateSuppNutritionSection },
-    { id: "homeSplit",    label: "Home · split comida + suplem.", Comp: HomeWithSuppSplitScreen },
   ];
 
   const activity = [
