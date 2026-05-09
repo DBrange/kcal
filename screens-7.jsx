@@ -36,9 +36,10 @@ const SupplementRegimenScreen = () => {
   const noScheduleWarn = state.frequency === "DAILY" && state.schedule.length === 0;
   const scheduleMismatch = state.frequency === "DAILY" && state.schedule.length > 0 && state.schedule.length !== state.times_per_day;
 
-  // Stock derivado: 30 / (5 g por toma · 1 vez al día) = 6 días si fueran g
+  // Stock derivado: inventory_quantity son unidades enteras del producto (cápsulas, sobres, dosis),
+  // NO gramos brutos. Backend hace floor(qty / times_per_day).
   const remainingDays = state.inventory_quantity && state.times_per_day
-    ? Math.floor(state.inventory_quantity / (state.dose_amount * state.times_per_day))
+    ? Math.floor(state.inventory_quantity / state.times_per_day)
     : null;
 
   return (
@@ -81,12 +82,12 @@ const SupplementRegimenScreen = () => {
 
         {/* === Dosis === */}
         <FormSection title="Dosis por toma" hint="Requerido">
-          <div style={{ display: "grid", gridTemplateColumns: "1.4fr 2fr", gap: 10 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 10 }}>
             <NumberField label="Cantidad" required value={state.dose_amount}/>
-            <SelectField label="Unidad" required value="g (gramos)"/>
           </div>
-          <div style={{ marginTop: 8, fontSize: 11, color: "var(--text-tertiary)", fontWeight: 600, marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.4 }}>
-            Unidades disponibles
+          <div style={{ marginTop: 12, marginBottom: 6, display: "flex", alignItems: "baseline", gap: 6 }}>
+            <span style={{ fontSize: 12, fontWeight: 600, color: "var(--text-secondary)" }}>Unidad</span>
+            <span style={{ fontSize: 9, fontWeight: 700, padding: "1px 5px", borderRadius: 4, background: "var(--surface-2)", color: "var(--text-tertiary)", textTransform: "uppercase", letterSpacing: 0.4 }}>req</span>
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
             {[
@@ -94,17 +95,17 @@ const SupplementRegimenScreen = () => {
               { v: "IU", l: "UI", disabled: true }, { v: "ML", l: "ml", disabled: true }, { v: "UNIT", l: "unidad", disabled: true },
             ].map(u => (
               <div key={u.v} style={{
-                padding: "6px 10px", borderRadius: 999,
+                padding: "7px 12px", borderRadius: 999,
                 border: `1px solid ${u.v === state.dose_unit ? "var(--primary-500)" : "var(--border)"}`,
                 background: u.v === state.dose_unit ? "#FFF8E1" : "var(--bg)",
                 color: u.disabled ? "var(--text-tertiary)" : (u.v === state.dose_unit ? "var(--primary-700)" : "var(--text-secondary)"),
-                fontSize: 12, fontWeight: u.v === state.dose_unit ? 700 : 500,
+                fontSize: 12.5, fontWeight: u.v === state.dose_unit ? 700 : 500,
                 opacity: u.disabled ? 0.5 : 1,
               }}>{u.l}</div>
             ))}
           </div>
           <div style={{ marginTop: 8, fontSize: 10.5, color: "var(--text-tertiary)" }}>
-            Solo se ofrecen las unidades declaradas en este suplemento.
+            Solo se ofrecen las unidades declaradas en este suplemento. Las grises no están disponibles.
           </div>
         </FormSection>
 
@@ -210,7 +211,7 @@ const SupplementRegimenScreen = () => {
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 12, fontWeight: 600 }}>Estimación de duración</div>
                 <div className="tabular" style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: 2 }}>
-                  {state.inventory_quantity} unidades ÷ {state.dose_amount} {state.dose_unit.toLowerCase()} × {state.times_per_day}/día
+                  {state.inventory_quantity} unidades ÷ {state.times_per_day} {state.times_per_day === 1 ? "toma" : "tomas"}/día
                 </div>
               </div>
               <div style={{ textAlign: "right" }}>
