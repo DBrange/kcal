@@ -27,6 +27,7 @@
 <script type="text/babel" src="screens-5.jsx"></script>
 <script type="text/babel" src="screens-6.jsx"></script>
 <script type="text/babel" src="screens-7.jsx"></script>
+<script type="text/babel" src="screens-8.jsx"></script>
 
 <script type="text/babel">
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -89,6 +90,18 @@ function App() {
     { id: "newRegimen",label: "Crear pauta de suplemento", Comp: SupplementRegimenScreen },
   ];
 
+  const supplementsFlow = [
+    { id: "suppSearch",   label: "Buscar suplemento (resultados)", Comp: () => <SupplementSearchScreen state="results"/> },
+    { id: "suppSearchE",  label: "Buscar suplemento (sin resultados)", Comp: () => <SupplementSearchScreen state="empty"/> },
+    { id: "reminders",    label: "Recordatorios del día (TAKE/SKIP)", Comp: RemindersTodayScreen },
+    { id: "suppStats",    label: "Adherencia · stats", Comp: SupplementStatsScreen },
+    { id: "logLibre",     label: "Registrar toma libre", Comp: LogLibreScreen },
+    { id: "suppHistory",  label: "Histórico de tomas", Comp: SuppLogsHistoryScreen },
+    { id: "suppNutri",    label: "Detalle suplem. · nutrición", Comp: SuppNutritionBlock },
+    { id: "createNutri",  label: "Crear suplem. · wizard nutrición", Comp: CreateSuppNutritionSection },
+    { id: "homeSplit",    label: "Home · split comida + suplem.", Comp: HomeWithSuppSplitScreen },
+  ];
+
   const activity = [
     { id: "actList",   label: "Actividad — listado del día",   Comp: ActivityLogListScreen },
     { id: "actDetail", label: "Actividad — detalle",           Comp: ActivityLogDetailScreen },
@@ -119,6 +132,14 @@ function App() {
                   widgetVariant={tweaks.widgetVariant}
                 />
               </PhoneFrame>
+            </DCArtboard>
+          ))}
+        </DCSection>
+
+        <DCSection id="supplementsFlow" title="Suplementos · búsqueda · reminders · stats · nutrición">
+          {supplementsFlow.map(s => (
+            <DCArtboard key={s.id} id={s.id} label={s.label} width={393} height={852}>
+              <PhoneFrame><s.Comp/></PhoneFrame>
             </DCArtboard>
           ))}
         </DCSection>
