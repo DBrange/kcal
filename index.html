@@ -29,6 +29,7 @@
 <script type="text/babel" src="screens-7.jsx"></script>
 <script type="text/babel" src="screens-8.jsx"></script>
 <script type="text/babel" src="screens-9.jsx"></script>
+<script type="text/babel" src="screens-10.jsx"></script>
 
 <script type="text/babel">
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -106,9 +107,16 @@ function App() {
   ];
 
   const activity = [
-    { id: "actList",   label: "Actividad — listado del día",   Comp: ActivityLogListScreen },
-    { id: "actDetail", label: "Actividad — detalle",           Comp: ActivityLogDetailScreen },
-    { id: "exHero",    label: "Actividad — hero (legacy)",     Comp: ExerciseScreen },
+    { id: "newActForm",    label: "Registrar actividad — Formulario",          Comp: () => <CreateActivityLogScreen initialMode="form"/> },
+    { id: "newActText",    label: "Registrar actividad — Texto libre",         Comp: () => <CreateActivityLogScreen initialMode="text"/> },
+    { id: "newActLoading", label: "Registrar actividad — buscando catalog",    Comp: () => <CreateActivityLogScreen initialMode="form" state="loading"/> },
+    { id: "newActErrors",  label: "Registrar actividad — validation errors",   Comp: () => <CreateActivityLogScreen initialMode="form" state="validation"/> },
+    { id: "newActOK",      label: "Registrar actividad — success (form)",      Comp: () => <CreateActivityLogScreen initialMode="form" state="success_form"/> },
+    { id: "newActParseOK", label: "Registrar actividad — parser OK (texto)",   Comp: () => <CreateActivityLogScreen initialMode="text" state="success_text"/> },
+    { id: "newActParseErr",label: "Registrar actividad — parser 422",         Comp: () => <CreateActivityLogScreen initialMode="text" state="parser_error"/> },
+    { id: "actList",   label: "Actividad — listado (no MVP)",   Comp: ActivityLogListScreen },
+    { id: "actDetail", label: "Actividad — detalle (no MVP)",   Comp: ActivityLogDetailScreen },
+    { id: "exHero",    label: "Actividad — hero (legacy)",      Comp: ExerciseScreen },
     { id: "exDetail",  label: "Actividad — sesión run (legacy)", Comp: ExerciseDetailScreen },
   ];
 
